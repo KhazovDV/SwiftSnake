@@ -13,7 +13,7 @@ import SpriteKit
 class GameViewController: UIViewController {
     @IBOutlet weak var pauseButton: UIButton!
     var flip = true
-    var myTimer = NSTimer()
+    var myTimer = Timer()
     let scene = GameScene(fileNamed: "GameScene")
         override func viewDidLoad() {
         super.viewDidLoad()
