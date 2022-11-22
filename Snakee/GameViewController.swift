@@ -17,7 +17,7 @@ class GameViewController: UIViewController {
     let scene = GameScene(fileNamed: "GameScene")
         override func viewDidLoad() {
         super.viewDidLoad()
-        myTimer = NSTimer.scheduledTimerWithTimeInterval(0.3, target: scene!, selector: "tick", userInfo: nil, repeats: true)
+            myTimer = Timer.scheduledTimer(timeInterval: 0.3, target: scene!, selector: Selector(("tick")), userInfo: nil, repeats: true)
             
         if (scene != nil) {
             // Configure the view.
@@ -29,7 +29,7 @@ class GameViewController: UIViewController {
             skView.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            scene!.scaleMode = .AspectFill
+            scene!.scaleMode = .aspectFill
             
             skView.presentScene(scene)
         }
@@ -37,28 +37,28 @@ class GameViewController: UIViewController {
 
     @IBAction func onButtonPress(sender: UIButton) {
         if flip{
-            pauseButton.setImage(UIImage(named: "play-button-3"), forState: .Normal)
-            scene!.view?.paused = true
+            pauseButton.setImage(UIImage(named: "play-button-3"), for: .normal)
+            scene!.view?.isPaused = true
             myTimer.invalidate()
              
         } else {
-            pauseButton.setImage(UIImage(named: "pause-2"), forState: .Normal)
-            scene!.view?.paused = false
-            myTimer = NSTimer.scheduledTimerWithTimeInterval(0.3, target: scene!, selector: "tick", userInfo: nil, repeats: true)
+            pauseButton.setImage(UIImage(named: "pause-2"), for: .normal)
+            scene!.view?.isPaused = false
+            myTimer = Timer.scheduledTimer(timeInterval: 0.3, target: scene!, selector: Selector(("tick")), userInfo: nil, repeats: true)
         }
         
         flip = !flip
         
     }
-    override func shouldAutorotate() -> Bool {
+     func shouldAutorotate() -> Bool {
         return true
     }
 
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            return .AllButUpsideDown
+     func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+         if UIDevice.current.userInterfaceIdiom == .phone {
+             return .allButUpsideDown
         } else {
-            return .All
+            return .all
         }
     }
 
@@ -67,7 +67,7 @@ class GameViewController: UIViewController {
         // Release any cached data, images, etc that aren't in use.
     }
 
-    override func prefersStatusBarHidden() -> Bool {
+     func prefersStatusBarHidden() -> Bool {
         return true
     }
 }
