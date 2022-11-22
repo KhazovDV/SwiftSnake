@@ -20,8 +20,8 @@ class Grid:SKSpriteNode {
     var blockSize:CGFloat!
     
     convenience init(blockSize:CGFloat,rows:Int,cols:Int, renderGrid: Bool) {
-        let texture = Grid.gridTexture(blockSize,rows: rows, cols:cols, renderGrid: renderGrid)
-        self.init(texture: texture, color:SKColor.clearColor(), size: texture.size())
+        let texture = Grid.gridTexture(blockSize: blockSize,rows: rows, cols:cols, renderGrid: renderGrid)
+        self.init(texture: texture, color:SKColor.clear, size: texture.size())
         self.blockSize = blockSize
         self.rows = rows
         self.cols = cols
@@ -47,35 +47,35 @@ class Grid:SKSpriteNode {
             // Draw vertical lines
             for i in 0...cols {
                 let x = CGFloat(i)*blockSize + offset
-                bezierPath.moveToPoint(CGPoint(x: x, y: 0))
-                bezierPath.addLineToPoint(CGPoint(x: x, y: size.height))
+                bezierPath.move(to: CGPoint(x: x, y: 0))
+                bezierPath.addLine(to: CGPoint(x: x, y: size.height))
             }
             // Draw horizontal lines
             for i in 0...rows {
                 let y = CGFloat(i)*blockSize + offset
-                bezierPath.moveToPoint(CGPoint(x: 0, y: y))
-                bezierPath.addLineToPoint(CGPoint(x: size.width, y: y))
+                bezierPath.move(to: CGPoint(x: 0, y: y))
+                bezierPath.addLine(to: CGPoint(x: size.width, y: y))
             }
 
         } else {
-            bezierPath.moveToPoint(CGPoint(x:0, y: 0))
-            bezierPath.addLineToPoint(CGPoint(x: 0, y: size.height))
+            bezierPath.move(to: CGPoint(x:0, y: 0))
+            bezierPath.addLine(to: CGPoint(x: 0, y: size.height))
             
-            bezierPath.moveToPoint(CGPoint(x: CGFloat(cols) * blockSize + offset, y: 0))
-            bezierPath.addLineToPoint(CGPoint(x: size.width, y: size.height))
+            bezierPath.move(to: CGPoint(x: CGFloat(cols) * blockSize + offset, y: 0))
+            bezierPath.addLine(to: CGPoint(x: size.width, y: size.height))
             
-            bezierPath.moveToPoint(CGPoint(x:0, y: 0))
-            bezierPath.addLineToPoint(CGPoint(x: size.width, y: 0))
+            bezierPath.move(to: CGPoint(x:0, y: 0))
+            bezierPath.addLine(to: CGPoint(x: size.width, y: 0))
             
-            bezierPath.moveToPoint(CGPoint(x: 0, y: CGFloat(rows)*blockSize + offset))
-            bezierPath.addLineToPoint(CGPoint(x: size.width, y: size.height))
+            bezierPath.move(to: CGPoint(x: 0, y: CGFloat(rows)*blockSize + offset))
+            bezierPath.addLine(to: CGPoint(x: size.width, y: size.height))
         }
         
-        SKColor.greenColor().setStroke()
+        SKColor.green.setStroke()
         bezierPath.lineWidth = 1.0
         bezierPath.stroke()
-        CGContextAddPath(context, bezierPath.CGPath)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
+        context!.addPath(bezierPath.cgPath)
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
         return SKTexture(image: image)
